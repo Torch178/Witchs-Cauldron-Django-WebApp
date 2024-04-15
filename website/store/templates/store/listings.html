@@ -1,0 +1,22 @@
+{% extends 'users/base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block body %}
+  <div class="card" style="width: 18rem;">
+  <ul class="list-group list-group-flush">
+      {% for item in item_list %}
+    <li class="list-group-item">Name: {{item.name}} Manufacturer: {{item.manufacturer}} Price: ${{item.price}}
+        <a href="{% url 'store:add_to_cart' item.id %}" class="btn btn-success">Add to Order</a>
+    </li>
+      {% endfor %}
+  </ul>
+</div>
+{% endblock %}
+</body>
+</html>
