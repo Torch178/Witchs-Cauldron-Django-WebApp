@@ -11,9 +11,10 @@
   <div class="card" style="width: 18rem;">
   <ul class="list-group list-group-flush">
       {% for item in item_list %}
-    <li class="list-group-item">Name: {{item.name}} Manufacturer: {{item.manufacturer}} Price: ${{item.price}}
-        <a href="{% url 'store:add_to_cart' item.id %}" class="btn btn-success">Add to Order</a>
-    </li>
+        <li onclick=location.href="{% url 'store:item_detail' item.id %} class="list-group-item">Name: {{item.name}} Manufacturer: {{item.manufacturer}} Price: ${{item.price}}
+            <a href="{% url 'store:add_to_cart' item.id %}" class="btn btn-success">Add to Order</a>
+            <a href="{% url 'store:item_detail' item.id %}" class="btn btn-success">View Details</a>
+        </li>
       {% endfor %}
   </ul>
 </div>

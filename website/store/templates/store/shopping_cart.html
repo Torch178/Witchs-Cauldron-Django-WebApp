@@ -1,0 +1,27 @@
+{% extends 'users/base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block body %}
+<div class="card" style="width: 18rem;">
+    <ul class="list-group list-group-flush">
+        {% for item in cart_items %}
+            <li onclick=location.href="{% url 'store:item_detail' item.id %} class="list-group-item">
+        Name: {{item.storeItem.name}}
+        Manufacturer: {{item.storeItem.manufacturer}}
+        Price: ${{item.storeItem.price}}
+        Quantity: {{item.quantity}}
+        <a href="{% url 'store:remove_item' item.id %}" class="btn btn-danger">Remove</a>
+            </li>
+        {% endfor %}
+        <a href="{% url 'store:clear_cart'%}" class="btn btn-danger">Clear Cart</a>
+    </ul>
+</div>
+{% endblock %}
+</body>
+</html>

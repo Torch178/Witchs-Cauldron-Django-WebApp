@@ -8,14 +8,19 @@ from users.models import Profile
 # Create your models here.
 
 class Order(models.Model):
-    subtotal = models.DecimalField(max_digits=20 ,decimal_places=2)
-    taxAmount = models.DecimalField(max_digits=20, decimal_places=2)
-    shipping = models.DecimalField(max_digits=20, decimal_places=2)
-    total = models.DecimalField(max_digits=20, decimal_places=2)
-    orderDateTime = models.DateTimeField()
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    subtotal = models.DecimalField(max_digits=20 ,decimal_places=2 , null=True)
+    taxAmount = models.DecimalField(max_digits=20, decimal_places=2, null=True)
+    shipping = models.DecimalField(max_digits=20, decimal_places=2, null=True)
+    total = models.DecimalField(max_digits=20, decimal_places=2, null=True)
+    orderDateTime = models.DateTimeField( null=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='user_profiles')
+    status = models.CharField(max_length=20 ,default='None')
+
+    def __str__(self):
+        return self.profile + "Order Number" + id()
 
 class StoreItem(models.Model):
+    image = models.ImageField(upload_to='store_item_images/', default='media/default.jpg')
     name = models.CharField(max_length=200)
     description = models.TextField()
     manufacturer = models.CharField(max_length=200)
@@ -29,7 +34,7 @@ class StoreItem(models.Model):
 
 class OrderItem(models.Model):
     quantity = models.IntegerField()
-    storeItem = models.ForeignKey(StoreItem, on_delete=models.CASCADE)
+    storeItem = models.ForeignKey(StoreItem, on_delete=models.CASCADE, related_name='store_item')
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
 
     def __str__(self):
