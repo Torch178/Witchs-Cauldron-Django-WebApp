@@ -8,19 +8,15 @@
 </head>
 <body>
 {% block body %}
-<div class="card" style="width: 18rem;">
-    {% if  cart_items.count == 0 %}
+    <h3>Checkout</h3>
     <div class="card" style="width: 18rem;">
-      <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                <p>Oops! Looks lke your cart is empty.</p>
-                <p>Why don't you take a look at our store page and start shopping?</p>
-                <a href="{% url 'store:browse' %}" class="btn btn-success">Browse</a>
-            </li>
-      </ul>
+        <h4>Select Shipping Address</h4>
+        {% for address in user.profile.address %}
     </div>
-    {% else %}
+<div class="card" style="width: 18rem;">
+    <h4>Order Summary</h4>
     <ul class="list-group list-group-flush">
+        <h5>Items:</h5>
         {% for item in cart_items %}
             <li onclick=location.href="{% url 'store:item_detail' item.id %} class="list-group-item">
         Name: {{item.storeItem.name}}
@@ -30,11 +26,15 @@
         <a href="{% url 'store:remove_item' item.id %}" class="btn btn-danger">Remove</a>
             </li>
         {% endfor %}
-        <a href="{% url 'store:clear_cart'%}" class="btn btn-danger">Clear Cart</a>
-        <a href="{% url 'store:checkout'%}" class="btn btn-primary">Proceed to Checkout</a>
+        <h5>Order Details:</h5>
+        <p>Subtotal:{{ order.subtotal }}</p>
+        <p>Tax:{{ order.taxAmount }}</p>
+        <p>Shipping:{{ order.shipping }}</p>
+        <p>Total:{{ order.total }}</p>
+        <a href="{% url 'store:confirmOrder'%}" class="btn btn-primary">Place Order</a>
     </ul>
 </div>
-    {% endif %}
+
 {% endblock %}
 </body>
 </html>

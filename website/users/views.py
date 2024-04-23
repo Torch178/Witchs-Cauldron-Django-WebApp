@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import RegistrationForm, ProfileForm
+from .forms import RegistrationForm, ProfileForm, AddressForm
 from django.contrib.auth.decorators import login_required
 from .models import Profile
 
@@ -24,6 +24,14 @@ def register(request):
 @login_required()
 def profilepage(request):
     return render(request, 'users/profile.html')
+@login_required()
+def new_address(request):
+    if request.method == 'POST':
+        form = AddressForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+
 
 
 

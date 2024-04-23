@@ -19,6 +19,19 @@ class Order(models.Model):
     def __str__(self):
         return self.profile + "Order Number" + id()
 
+    def calculate_order(self):
+        order_items = OrderItem.objects.filter(order__id=self)
+        for item in order_items:
+            cost = (item.storeItem.price * item.quantity)
+            self.subtotal += cost
+        self.taxAmount += self.subtotal * 0.0725
+        if self.subtotal > 100:
+            self.shipping = 0
+        else:
+            self.shipping = self.subtotal / 100
+        self.total = self.subtotal + self.taxAmount + self.shipping
+        return self.total
+
 class StoreItem(models.Model):
     image = models.ImageField(upload_to='store_item_images/', default='media/default.jpg')
     name = models.CharField(max_length=200)
