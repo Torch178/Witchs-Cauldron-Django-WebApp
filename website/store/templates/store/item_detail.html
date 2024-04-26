@@ -15,7 +15,7 @@
                 <h5 class="card-title">{{ item.name }}</h5>
                 <h6 class="card-title">Price: ${{item.price}}</h6>
                 <h6 class="card-title">Manufacturer {{item.manufacturer}}</h6>
-                <p class="card-text">Description: {{ item.description }}</p>
+                <p class="card-text">{{ item.item_desc }}</p>
                 <a href="{% url 'store:add_to_cart' item.id %}" action class="btn btn-success">Add to Order</a>
             </div>
         </div>

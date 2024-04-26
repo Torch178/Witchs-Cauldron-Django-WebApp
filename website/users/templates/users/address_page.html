@@ -1,0 +1,42 @@
+{% extends 'users/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block body %}
+    {% for address in address_list %}
+    <div class="row">
+        <div class="card" style="width: 18rem;">
+
+            {% if address.default_address == True %}
+          <div class="card-header">
+              Default Address
+          </div>
+            {% endif %}
+
+          <ul class="list-group list-group-flush">
+              <h4>{{user.username}}</h4>
+              {% if address.apartmentNum is not None %}
+              <li class="list-group-item">{{ address.streetAddress }} Apt. {{address.apartmentNum}}</li>
+              {% else %}
+              <li class="list-group-item">{{ address.streetAddress }}</li>
+              {% endif %}
+            <li class="list-group-item">{{address.city}}, {{address.state}}  {{address.zipcode}}</li>
+            <li class="list-group-item">{{address.country_region}}</li>
+          </ul>
+            <a href="{% url 'users:edit_address' address.id %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'users:delete_address' address.id %}" class="btn btn-danger">Delete</a>
+
+            {% if address.default_address == False %}
+            <a href="{% url 'users:set_default_address' address.id %}" class="btn btn-link">Set as Default</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+    <a href="{% url 'users:new_address'%}" class="btn btn-primary">Add Address</a>
+{% endblock %}
+</body>
+</html>

@@ -119,10 +119,13 @@ USE_TZ = True
 ROOT_URLCONF = 'website.urls'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'profile/login/'
-STATIC_URL = '/static/'
-
+STATIC_URL = 'static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_URL = "/media/"
+MEDIA_URL = "media/"
 
 
 # Default primary key field type

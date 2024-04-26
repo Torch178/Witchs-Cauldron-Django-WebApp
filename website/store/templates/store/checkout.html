@@ -9,10 +9,6 @@
 <body>
 {% block body %}
     <h3>Checkout</h3>
-    <div class="card" style="width: 18rem;">
-        <h4>Select Shipping Address</h4>
-        {% for address in user.profile.address %}
-    </div>
 <div class="card" style="width: 18rem;">
     <h4>Order Summary</h4>
     <ul class="list-group list-group-flush">
@@ -23,18 +19,17 @@
         Manufacturer: {{item.storeItem.manufacturer}}
         Price: ${{item.storeItem.price}}
         Quantity: {{item.quantity}}
-        <a href="{% url 'store:remove_item' item.id %}" class="btn btn-danger">Remove</a>
             </li>
         {% endfor %}
         <h5>Order Details:</h5>
-        <p>Subtotal:{{ order.subtotal }}</p>
-        <p>Tax:{{ order.taxAmount }}</p>
-        <p>Shipping:{{ order.shipping }}</p>
-        <p>Total:{{ order.total }}</p>
-        <a href="{% url 'store:confirmOrder'%}" class="btn btn-primary">Place Order</a>
+        <p>Subtotal:$ {{ order.subtotal }}</p>
+        <p>Tax:$ {{ order.taxAmount }}</p>
+        <p>Shipping:$ {{ order.shipping }}</p>
+        <p>Total:$ {{ order.total }}</p>
+        <p>Shipping Address: {{ address }}</p>
+        <a href="{% url 'store:payment_form'%}" class="btn btn-primary">Proceed to Payment</a>
     </ul>
 </div>
-
 {% endblock %}
 </body>
 </html>

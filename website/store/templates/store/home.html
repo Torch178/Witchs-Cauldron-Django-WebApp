@@ -8,7 +8,17 @@
 </head>
 <body>
 {% block body %}
+<div class="col d-flex justify-content-center">
+<div class="card text-center">
+  <div class="card-header">
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Welcome!</h5>
+    <p class="card-text">We have a large selection of occult items and mystical artefacts, feel free to stay awhile and browse!</p>
     <a href="{% url 'store:browse' %}">Browse</a>
+  </div>
+</div>
+</div>
 {% endblock %}
 </body>
 </html>

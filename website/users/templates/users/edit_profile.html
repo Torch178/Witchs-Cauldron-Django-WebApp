@@ -1,0 +1,18 @@
+{% extends 'users/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block body %}
+    <form method="Post">
+        {% csrf_token %}
+        {{ user_form }}
+        {{ profile_form }}
+        <button type="submit">Save</button>
+    </form>
+{% endblock %}
+</body>
+</html>

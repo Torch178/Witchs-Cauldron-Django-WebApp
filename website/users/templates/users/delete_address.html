@@ -1,0 +1,22 @@
+{% extends 'users/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block body %}
+<form method="POST">
+    {% csrf_token %}
+    {%if address.apartmentNum %}
+    <h2>Are you sure you want to delete {{address.streetAddress}}  {{address.apartmentNum}} {{address.city}}, {{address.state}} {{address.zipcode}}</h2>
+    {% else %}
+    <h2>Are you sure you want to delete {{address.streetAddress}} {{address.city}}, {{address.state}} {{address.zipcode}}</h2>
+    {% endif %}
+    <button type="submit">Confirm</button>
+</form>
+{% endblock %}
+
+</body>
+</html>

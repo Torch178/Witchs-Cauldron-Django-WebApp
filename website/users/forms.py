@@ -1,4 +1,6 @@
 from django import forms
+from django.http import request
+
 from .models import Profile, Address
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -11,11 +13,17 @@ class RegistrationForm(UserCreationForm):
         model = User
         fields = ['first_name', 'last_name','username', 'email', 'password1', 'password2']
 
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name','username', 'email']
+
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = '__all__'
-        exclude = ['user']
+        exclude = ['user', 'registration_date']
+
 
 class PaymentForm(forms.Form):
     name = forms.CharField(label='Full Name',max_length=200, required=True)
@@ -26,6 +34,6 @@ class PaymentForm(forms.Form):
 class AddressForm(forms.ModelForm):
     class Meta:
         model = Address
-        fields = ['__all__','profile']
-        profile = forms.ModelChoiceField(
-        )
+        fields = '__all__'
+        exclude = ['default_address']
+        widgets = {'profile': forms.HiddenInput()}

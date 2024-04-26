@@ -9,7 +9,7 @@
 <body>
 {% block body %}
 <div class="card" style="width: 18rem;">
-    {% if  cart_items.count == 0 %}
+    {% if  cart_items.count == 0 or order is None %}
     <div class="card" style="width: 18rem;">
       <ul class="list-group list-group-flush">
             <li class="list-group-item">
@@ -30,9 +30,13 @@
         <a href="{% url 'store:remove_item' item.id %}" class="btn btn-danger">Remove</a>
             </li>
         {% endfor %}
-        <a href="{% url 'store:clear_cart'%}" class="btn btn-danger">Clear Cart</a>
-        <a href="{% url 'store:checkout'%}" class="btn btn-primary">Proceed to Checkout</a>
+
     </ul>
+    <div class="card-footer">
+    Order Subtotal: ${{order.subtotal}}
+    </div>
+    <a href="{% url 'store:clear_cart'%}" class="btn btn-danger">Clear Cart</a>
+    <a href="{% url 'store:checkout'%}" class="btn btn-primary">Proceed to Checkout</a>
 </div>
     {% endif %}
 {% endblock %}

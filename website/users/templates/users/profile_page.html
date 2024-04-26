@@ -1,0 +1,33 @@
+{% extends 'users/base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block body %}
+    <div class="col d-flex justify-content-center">
+        <div class="card">
+            <img src="{{ user.user_profile.image }}" class="img-fluid rounded-start" alt="...">
+            <h5 class="card-title content-center">Profile Info</h5>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">First Name: {{ user.first_name }}</li>
+                <li class="list-group-item">Last Name: {{ user.last_name }}</li>
+                <li class="list-group-item">Email: {{ user.email }}</li>
+                <li class="list-group-item">Username: {{ user.username }}</li>
+                <li class="list-group-item">Registration Date: {{ user.user_profile.registration_date }} </li>
+              </ul>
+                <a href="{% url 'users:edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+            </div>
+        </div>
+    </div>
+<div class="d-grid gap-2 col-2 mx-auto">
+     <a href="{% url 'users:delete_profile' %}" class=" btn btn-danger">Delete Profile</a>
+</div>
+
+    {% endblock %}
+</body>
+</html>

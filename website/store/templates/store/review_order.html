@@ -1,0 +1,26 @@
+{% extends 'users/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block body %}
+    <h3>Checkout</h3>
+<div class="card" style="width: 18rem;">
+    <h4>Review Order Details</h4>
+    <ul class="list-group list-group-flush">
+        <h5>Order Details:</h5>
+        <p>Subtotal:$ {{ order.subtotal }}</p>
+        <p>Tax:$ {{ order.taxAmount }}</p>
+        <p>Shipping:$ {{ order.shipping }}</p>
+        <p>Total:$ {{ order.total }}</p>
+        <p>Shipping Address: {{ address }}</p>
+        <p>Payment Method: {{ order.payMethod }}</p>
+        <a href="{% url 'store:place_order' id=order.id  address=address %}" class="btn btn-primary">Place Order</a>
+    </ul>
+</div>
+{% endblock %}
+</body>
+</html>

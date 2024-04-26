@@ -9,7 +9,7 @@
   <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <link rel="stylesheet" href="{% static 'PortfolioDatabase/style.css' %}">
+  <link rel="stylesheet" href="{% static 'store/style.css' %}">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <!--  <script type="text/javascript" src="{% static 'actions.js' %}"></script>-->
 </head>
@@ -24,17 +24,28 @@
     </button>
 
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="d-flex collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
         <li class="nav-item">
-          <a class="nav-link active" href="{% url 'store:home' %}">Return to Site</a>
+          <a class="nav-link active" href="{% url 'store:home' %}">Home</a>
         </li>
 
+        <form class="d-flex" action="{% url 'store:browse' %}" method="get">
+          <input class="form-control me-2" type="search" name="search_criteria" placeholder="Search" aria-label="Search">
+          <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+
         {% if user.is_authenticated %}
-          <a class="nav-item nav-link" href="{% url 'users:profile' %}">Profile</a>
-          <a class="nav-item nav-link" href="{% url 'store:shopping_cart' %}">Cart</a>
-          <form method="post" action="{% url 'users:logout' %}">
+          <li class="nav-item float-right">
+              <a class="nav-item nav-link active"  href="{% url 'users:profile' %}">
+                <img class="profile_icon" src="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png"> Profile</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-item nav-link active float-right"  href="{% url 'store:shopping_cart' %}">
+                <img class="profile_icon" src="https://static.vecteezy.com/system/resources/previews/027/381/351/original/shopping-cart-icon-shopping-trolley-icon-shopping-cart-logo-container-for-goods-and-products-economics-symbol-design-elements-basket-symbol-silhouette-retail-design-elements-vector.jpg"> Cart</a>
+          </li>
+          <form class="float-right" method="post" action="{% url 'users:logout' %}">
               {% csrf_token %}
               <button type="submit">Logout</button>
           </form>

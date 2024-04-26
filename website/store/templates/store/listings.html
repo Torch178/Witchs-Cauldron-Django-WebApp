@@ -8,16 +8,68 @@
 </head>
 <body>
 {% block body %}
-  <div class="card" style="width: 18rem;">
-  <ul class="list-group list-group-flush">
-      {% for item in item_list %}
-        <li onclick=location.href="{% url 'store:item_detail' item.id %} class="list-group-item">Name: {{item.name}} Manufacturer: {{item.manufacturer}} Price: ${{item.price}}
-            <a href="{% url 'store:add_to_cart' item.id %}" class="btn btn-success">Add to Order</a>
-            <a href="{% url 'store:item_detail' item.id %}" class="btn btn-success">View Details</a>
-        </li>
-      {% endfor %}
+ <h1 class="text-center">Browse</h1>
+        <div class="container">
+            <div class="row">
+                {% for item in item_list %}
+
+                    <div class="card-group col-md-4 mb-3">
+                        <div class="card preview">
+                            <img src="{{ item.item_img }}" class="card-img-top " alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ item.name }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p>Price: ${{item.price}}</p>
+                                <a href="{% url 'store:add_to_cart' item.id %}" class="btn btn-success">Add to Order</a>
+                                <a href="{% url 'store:item_detail' item.id %}" class="btn btn-success">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+<nav aria-label="Page navigation  example">
+  <ul class="pagination justify-content-center">
+
+    {% if item_list.has_previous %}
+      <li class="page-item">
+          <a class="page-link" href="?page=1&search_criteria={{ search_criteria }}">First</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ item_list.previous_page_number }}&search_criteria={{ search_criteria }}">Previous</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+          <a class="page-link" href="#">First</a>
+      </li>
+      <li class="page-item disabled">
+        <a class="page-link" href="#">Previous</a>
+      </li>
+    {% endif %}
+    {% for page in item_list.paginator.page_range %}
+        <li class="page-item"><a class="page-link" href="?page={{ page }}&search_criteria={{ search_criteria }}">{{ page }}</a></li>
+    {% endfor %}
+
+        {% if item_list.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ item_list.next_page_number }}&search_criteria={{ search_criteria }}">Next</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ item_list.paginator.num_pages }}&search_criteria={{ search_criteria }}">Last</a>
+            </li>
+
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#">Next</a>
+            </li>
+            <li class="page-item disabled">
+                <a class="page-link" href="#">Last</a>
+            </li>
+        {% endif %}
   </ul>
-</div>
+</nav>
 {% endblock %}
 </body>
 </html>

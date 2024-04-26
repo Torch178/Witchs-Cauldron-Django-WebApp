@@ -11,19 +11,21 @@
 </head>
 <body>
     {% block body %}
-
-
+<div class="container">
+<div class="row">
+    <div class="card-group col-md-10 mb-2">
     <div class="col d-flex justify-content-center contact">
-    <div class="card">
-        <h2>{{ user.username }}</h2>
-        <img src="{{ user.profile.profile_pic.url }}" class="img-fluid rounded-start" alt="...">
-        <h5 class="card-title">Contact Information</h5>
-        <div class="card-body">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Name: {{ user.first_name}}</li>
-            <li class="list-group-item">Email: <a href="mailto:{{ user.email }}"> {{ user.email }}</a></li>
-          </ul>
-        </div>
+    <div onclick=location.href="{% url 'users:address_page' %}" class="card profile-card">
+        <h2>Your Addresses</h2>
+        <h4>Edit, Remove, or Set default Address</h4>
+    </div>
+    <div onclick=location.href="{% url 'users:profile_page' %}" class="card profile-card">
+        <h2>Your Profile</h2>
+        <h4>Edit, Delete, or View Profile Information</h4>
+    </div>
+    <div onclick=location.href="{% url 'users:order_history' %}" class="card profile-card">
+        <h2>Order History</h2>
+        <h4>Review Past Orders</h4>
     </div>
 </div>
     {% endblock %}
